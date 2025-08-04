@@ -1,14 +1,11 @@
-app = "your-app-name"  # এখানে ছোট হাতের অক্ষর, সংখ্যা, ড্যাশ ব্যবহার করো
+app = "schedule-bot"
 
 [build]
   dockerfile = "./Dockerfile"
 
 [env]
-  SESSION_STRING = "your_session_string_here"
-  API_ID = "your_api_id_here"
-  API_HASH = "your_api_hash_here"
-  ADMIN_ID = "your_admin_id_here"
+  SESSION_STRING = "your_session_string"
+  API_ID = "your_api_id"
+  API_HASH = "your_api_hash"
+  ADMIN_ID = "your_admin_id"
   GROUPS = "-1001234567890,-1009876543210"
-
-[deploy]
-  release_command = ""
