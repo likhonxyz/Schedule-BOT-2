@@ -1,8 +1,5 @@
 app = "schedule-bot"
 
-[build]
-  dockerfile = "./Dockerfile"
-
 [env]
   SESSION_STRING = "your_session_string"
   API_ID = "your_api_id"
