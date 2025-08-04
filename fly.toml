@@ -1,9 +1,11 @@
-app = "telegram-link-block-bot"
+app = "Schedule-BOT-2"
+primary_region = "sin"
 
 [build]
+  image = "python:3.10"
 
 [env]
-PORT = "8080"
+  PYTHONUNBUFFERED = "1"
 
 [[services]]
   internal_port = 8080
