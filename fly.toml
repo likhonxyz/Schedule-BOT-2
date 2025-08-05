@@ -1,11 +1,21 @@
-app = "schedule-bot-2"
+app = "schedule-bot-2"  # তোমার Fly app নাম
+
+primary_region = "ams"
+
+[build]
+  image = "python:3.10-slim"
 
 [env]
-  SESSION_STRING = "your_session_string"
-  API_ID = "your_api_id"
-  API_HASH = "your_api_hash"
-  ADMIN_ID = "your_admin_id"
-  GROUPS = "-1001234567890,-1009876543210"
+  PYTHONUNBUFFERED = "1"
 
-[experimental]
-  auto_rollback = true
+[processes]
+  app = "python3 main.py"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
+  [[services.ports]]
+    port = 443
