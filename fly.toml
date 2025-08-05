@@ -1,9 +1,8 @@
-app = "schedule-bot-2"  # তোমার Fly app নাম
-
+app = "schedule-bot-2"
 primary_region = "ams"
 
 [build]
-  image = "python:3.10-slim"
+  # no need to specify image here, Fly will use Dockerfile
 
 [env]
   PYTHONUNBUFFERED = "1"
