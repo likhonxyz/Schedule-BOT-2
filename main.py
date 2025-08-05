@@ -85,7 +85,6 @@ async def continuous_send():
         for group in groups:
             if not is_sending.is_set():
                 break
-                
             try:
                 await client.send_message(int(group), current_message)
                 print(f"✅ মেসেজ পাঠানো হয়েছে → {group}")
@@ -95,7 +94,6 @@ async def continuous_send():
         
         print(f"📊 {success_count}/{len(groups)} গ্রুপে সফলভাবে পাঠানো হয়েছে")
         
-        # ইন্টারভাল পর্যন্ত অপেক্ষা করুন
         for _ in range(send_interval):
             if not is_sending.is_set():
                 break
@@ -107,72 +105,4 @@ async def main():
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
-    client.loop.run_until_complete(main())            await update.message.reply_text("❌ Links are not allowed!")
-        except Exception as e:
-            logger.warning(f"Error deleting message: {e}")
-
-async def add_no_exempt(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if len(context.args) < 2:
-        await update.message.reply_text("⚠️ Usage: /addnoexempt <group_id> <user_id>")
-        return
-    try:
-        chat_id = int(context.args[0])
-        user_id = int(context.args[1])
-
-        if chat_id not in group_no_exempt_admin_ids:
-            group_no_exempt_admin_ids[chat_id] = []
-
-        if user_id not in group_no_exempt_admin_ids[chat_id]:
-            group_no_exempt_admin_ids[chat_id].append(user_id)
-            await update.message.reply_text(f"✅ User ID {user_id} added to no-exempt list for group {chat_id}.")
-        else:
-            await update.message.reply_text(f"ℹ️ User ID {user_id} already in no-exempt list for group {chat_id}.")
-    except ValueError:
-        await update.message.reply_text("❌ Invalid IDs.")
-
-async def remove_no_exempt(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if len(context.args) < 2:
-        await update.message.reply_text("⚠️ Usage: /removenoexempt <group_id> <user_id>")
-        return
-    try:
-        chat_id = int(context.args[0])
-        user_id = int(context.args[1])
-
-        if chat_id in group_no_exempt_admin_ids and user_id in group_no_exempt_admin_ids[chat_id]:
-            group_no_exempt_admin_ids[chat_id].remove(user_id)
-            await update.message.reply_text(f"✅ User ID {user_id} removed from no-exempt list for group {chat_id}.")
-        else:
-            await update.message.reply_text(f"ℹ️ User ID {user_id} not found in no-exempt list for group {chat_id}.")
-    except ValueError:
-        await update.message.reply_text("❌ Invalid IDs.")
-
-async def list_no_exempt(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if len(context.args) < 1:
-        await update.message.reply_text("⚠️ Usage: /listnoexempt <group_id>")
-        return
-    try:
-        chat_id = int(context.args[0])
-        if chat_id not in group_no_exempt_admin_ids or not group_no_exempt_admin_ids[chat_id]:
-            await update.message.reply_text(f"ℹ️ No user IDs in no-exempt list for group {chat_id}.")
-        else:
-            ids_text = "\n".join(str(uid) for uid in group_no_exempt_admin_ids[chat_id])
-            await update.message.reply_text(f"📝 No-exempt list for group {chat_id}:\n{ids_text}")
-    except ValueError:
-        await update.message.reply_text("❌ Invalid group ID.")
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("✅ Bot is running and ready!\nYou can control me via private chat using group IDs.")
-
-app = ApplicationBuilder().token(TOKEN).build()
-
-# Command handlers
-app.add_handler(CommandHandler("addnoexempt", add_no_exempt))
-app.add_handler(CommandHandler("removenoexempt", remove_no_exempt))
-app.add_handler(CommandHandler("listnoexempt", list_no_exempt))
-app.add_handler(CommandHandler("start", start))
-
-# Message handler for links
-app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), delete_links))
-
-logger.info("✅ Bot is running...")
-app.run_polling()
+    client.loop.run_until_complete(main())
